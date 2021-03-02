@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 
 import { WeatherComponent } from './weather/weather.component';
 import { HttpClientModule } from '@angular/common/http';
+import { createCustomElement } from '@angular/elements';
 @NgModule({
   declarations: [
     WeatherComponent,
@@ -12,6 +13,17 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: []
+  entryComponents: [WeatherComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    private injector: Injector,
+  ) { }
+
+  // tslint:disable-next-line:typedef
+  ngDoBootstrap() {
+    const weathercomponent = createCustomElement(WeatherComponent, {injector: this.injector});
+    customElements.define('app-weather', weathercomponent);
+  }
+
+}
