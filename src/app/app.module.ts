@@ -13,7 +13,6 @@ import { createCustomElement } from '@angular/elements';
     HttpClientModule
   ],
   providers: [],
-  entryComponents: [WeatherComponent]
 })
 export class AppModule {
   constructor(
